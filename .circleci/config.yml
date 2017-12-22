@@ -21,3 +21,19 @@ jobs:
       - run: go get github.com/tcnksm/ghr
       - run: gox -output "/go/pkg/{{.Dir}}_{{.OS}}_{{.Arch}}"  ./ ./...
       - run: ghr -u $CIRCLE_PROJECT_USERNAME $CIRCLE_TAG /go/pkg/
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: /.*/
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
