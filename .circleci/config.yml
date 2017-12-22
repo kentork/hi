@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  deploy:
+    docker:
+      - image: circleci/golang:1.9
+    working_directory: /go/src/github.com/kentork/hi
+    steps:
+      - checkout
+      - run: go get github.com/martinlindhe/notify
+      - run: github.com/urfave/cli
+      - run: go get github.com/mitchellh/gox
+      - run: go get github.com/tcnksm/ghr
+      - run: gox -output "/go/pkg/{{.Dir}}_{{.OS}}_{{.Arch}}"  ./ ./...
+      - run: ghr -u $CIRCLE_PROJECT_USERNAME $CIRCLE_TAG /go/pkg/
