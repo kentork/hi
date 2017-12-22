@@ -7,7 +7,7 @@ jobs:
     steps:
       - checkout
       - run: go get github.com/martinlindhe/notify
-      - run: github.com/urfave/cli
+      - run: go get github.com/urfave/cli
       - run: bo build
   deploy:
     docker:
@@ -16,7 +16,7 @@ jobs:
     steps:
       - checkout
       - run: go get github.com/martinlindhe/notify
-      - run: github.com/urfave/cli
+      - run: go get github.com/urfave/cli
       - run: go get github.com/mitchellh/gox
       - run: go get github.com/tcnksm/ghr
       - run: gox -output "/go/pkg/{{.Dir}}_{{.OS}}_{{.Arch}}"  ./ ./...
