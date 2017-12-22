@@ -8,7 +8,7 @@ jobs:
       - checkout
       - run: go get github.com/martinlindhe/notify
       - run: go get github.com/urfave/cli
-      - run: bo build
+      - run: go build
   deploy:
     docker:
       - image: circleci/golang:1.9
